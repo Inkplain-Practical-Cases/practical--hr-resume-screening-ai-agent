@@ -2,7 +2,7 @@
   "version": "1.0",
   "name": "Resume STEP-1",
   "source": {
-    "revision": "step-03-index-and-retrieve-evidence-spans"
+    "revision": "step-04-create-cited-criteria-comparisons"
   },
   "flows": [
     {
@@ -11,11 +11,11 @@
     }
   ],
   "step": {
-    "no": 3,
+    "no": 4,
     "of": 6,
-    "title": "Add core domain state",
-    "branch": "step-03-index-and-retrieve-evidence-spans",
-    "previous": "STEP-2.crd",
+    "title": "Add domain workflow",
+    "branch": "step-04-create-cited-criteria-comparisons",
+    "previous": "STEP-3.crd",
     "removed": []
   },
   "components": [
@@ -253,6 +253,34 @@
       },
       "owner": "resumes",
       "component_reason": "Separately executable persistence/business unit",
+      "status": "observed",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {},
+      "step_change": "unchanged"
+    },
+    {
+      "id": "be.step4_domain",
+      "name": "step4_domain",
+      "kind": "function",
+      "side": "backend",
+      "layer": "service",
+      "description": "Domain-specific guarded business operation",
+      "flows": [
+        "resumes"
+      ],
+      "source": {
+        "file": "app/features/resumes/services/evidence_comparison.py",
+        "symbol": "domain operation",
+        "lines": [
+          1,
+          50
+        ]
+      },
+      "owner": "resumes",
+      "component_reason": "Independently verifiable business capability",
       "status": "observed",
       "inputs": [],
       "validations": [],
