@@ -1,0 +1,25 @@
+name: Seven-Branch Python Test Matrix
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ref: ["main", "step-01-receive-authorized-resume-documents", "step-02-extract-and-normalize-qualifications", "step-03-index-and-retrieve-evidence-spans", "step-04-create-cited-criteria-comparisons", "step-05-add-recruiter-review-and-retention", "step-06-harden-privacy-and-evidence-tests"]
+    name: ${{ matrix.ref }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install runtime and test dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run tests
+        run: python -m pytest -q
