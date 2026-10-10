@@ -2,7 +2,7 @@
   "version": "1.0",
   "name": "Resume STEP-1",
   "source": {
-    "revision": "step-01"
+    "revision": "step-02-extract-and-normalize-qualifications"
   },
   "flows": [
     {
@@ -11,11 +11,11 @@
     }
   ],
   "step": {
-    "no": 1,
+    "no": 2,
     "of": 6,
-    "title": "Receive validated resume requests",
-    "branch": "step-01",
-    "previous": null,
+    "title": "Add provider boundary",
+    "branch": "step-02-extract-and-normalize-qualifications",
+    "previous": "STEP-1.crd",
     "removed": []
   },
   "components": [
@@ -74,7 +74,7 @@
       "attributes": {
         "endpoint": "POST /api/resumes"
       },
-      "step_change": "added"
+      "step_change": "unchanged"
     },
     {
       "id": "be.handle_resume",
@@ -134,7 +134,7 @@
         }
       ],
       "attributes": {},
-      "step_change": "added"
+      "step_change": "unchanged"
     },
     {
       "id": "be.service_resume",
@@ -166,12 +166,68 @@
         }
       ],
       "validations": [],
-      "operations": [],
+      "operations": [
+        {
+          "id": "op-provider",
+          "title": "consult_provider",
+          "origin": "imported",
+          "description": "Delegate domain work to provider function",
+          "show": true,
+          "calls": {
+            "component": "be.domain_provider",
+            "type": "call",
+            "label": "provider lookup",
+            "evidence": "app/features/resumes/services/service_resume.py"
+          }
+        }
+      ],
       "outputs": [
         {
           "id": "output-0",
           "name": "detail",
           "description": "detail"
+        }
+      ],
+      "attributes": {
+        "step_note": "Calls an injected or deterministic provider instead of acknowledging input."
+      },
+      "step_change": "changed"
+    },
+    {
+      "id": "be.domain_provider",
+      "name": "domain_provider",
+      "kind": "function",
+      "side": "backend",
+      "layer": "provider",
+      "description": "STEP-2 isolated domain integration",
+      "flows": [
+        "resumes"
+      ],
+      "source": {
+        "file": "app/features/resumes/providers/qualifications.py",
+        "symbol": "extract_qualifications",
+        "lines": [
+          1,
+          50
+        ]
+      },
+      "owner": "resumes",
+      "component_reason": "Explicit external or fake boundary",
+      "status": "observed",
+      "inputs": [
+        {
+          "id": "input-1",
+          "name": "domain request",
+          "description": "validated input"
+        }
+      ],
+      "validations": [],
+      "operations": [],
+      "outputs": [
+        {
+          "id": "output-1",
+          "name": "provider result",
+          "description": "domain result"
         }
       ],
       "attributes": {},

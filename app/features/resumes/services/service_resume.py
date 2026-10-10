@@ -1,13 +1,7 @@
-"""Domain service: deterministic STEP-1 acknowledgement.
-ICS layer: service
-CRD component: be.service_resume
-Called by: handle_resume
-Calls: none
-Why: provides an independently testable functional slice.
-Without: no business response to inspect.
-Step: added in STEP-1.
-"""
-def service_resume(value: str) -> str:
-    """Return a safe deterministic acknowledgement of the input."""
-    # Processing is deliberately limited: later steps add integrations.
-    return "Acknowledge receipt of synthetic resume text without making hiring decisions; input length: " + str(len(value.strip()))
+"""STEP-2 resume service: extract only explicit job-related keywords from synthetic text."""
+from app.features.resumes.providers.qualifications import extract_qualifications
+
+def service_resume(value:str)->str:
+    """Report explicit evidence tokens; this is not a hiring recommendation."""
+    skills=extract_qualifications(value)
+    return "Observed job keywords: "+(", ".join(skills) if skills else "none")
