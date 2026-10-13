@@ -60,7 +60,7 @@
     },
     "content": {
       "status": "done",
-      "summary": "Portal Stage 4 completed: 8 active categories and 45 active case lessons (18 Overview with 16 source-backed What-is, 6 STEP categories x 4 items, 3 Conclusion). Structural MCP read-back confirmed counts and six INKP tabs with no missing executor links; representative lessons inspected for CRD, source-code, GitHub and 4M content. Production-integration limitations remain explicit in tutorials.",
+      "summary": "Final source audit: evidence indexing builds a list from synthetic text and recruiter review returns an annotated response; it does not commit hiring/review records to a durable store. No source-backed database ERD is applicable.",
       "outputs": {
         "categories_created": 8,
         "items_target": 45,
@@ -70,12 +70,16 @@
         "step_items": 24,
         "theory_items": 16,
         "conclusion_items": 3,
-        "structural_qa": true
+        "structural_qa": true,
+        "erd_audit_complete": true,
+        "erd_applicable_steps": [],
+        "erd_not_applicable": true,
+        "erd_lessons_created": 0
       },
       "started_at": "2026-10-10T07:50:56.066Z",
       "finished_at": "2026-10-10T10:14:28.371Z",
       "updated_by": "api-key:for-chatgpt-test-2"
     }
   },
-  "updated_at": "2026-10-10T10:14:28.371Z"
+  "updated_at": "2026-10-13T13:46:01.001Z"
 }
