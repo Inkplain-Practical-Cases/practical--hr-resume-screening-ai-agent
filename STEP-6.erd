@@ -1,0 +1,71 @@
+{
+  "erd_version": 1,
+  "name": "hr-resume-screening-ai-agent",
+  "step": 6,
+  "engine": "sqlite",
+  "generated_from": [
+    "app/features/resumes/providers/provider_record_screening.py",
+    "app/features/resumes/services/service_record_screening.py",
+    "app/features/resumes/handlers/handle_resume.py"
+  ],
+  "entities": [
+    {
+      "name": "screening_runs",
+      "kind": "table",
+      "step_change": "added",
+      "source": "app/features/resumes/providers/provider_record_screening.py",
+      "description": "Minimal screening completion metadata; does not store resumes or applicant identities.",
+      "fields": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "key": "PK"
+        },
+        {
+          "name": "document_char_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "TEXT"
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT"
+        }
+      ]
+    },
+    {
+      "name": "screening_events",
+      "kind": "table",
+      "step_change": "added",
+      "source": "app/features/resumes/providers/provider_record_screening.py",
+      "description": "Screening completion event linked to one screening run; no extracted text.",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "key": "PK"
+        },
+        {
+          "name": "screening_id",
+          "type": "TEXT",
+          "references": "screening_runs.id"
+        },
+        {
+          "name": "event_type",
+          "type": "TEXT"
+        },
+        {
+          "name": "result_char_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "occurred_at",
+          "type": "TEXT"
+        }
+      ]
+    }
+  ],
+  "relations": []
+}
